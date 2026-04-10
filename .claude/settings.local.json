@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e \":*)",
+      "mcp__plugin_telegram_telegram__reply",
+      "Bash(open http://localhost:5173/)",
+      "Bash(grep -h \"p\\\\[''''\\\\|pesticide\\\\[''''\\\\|scope\\\\[''''\" /Users/nickchen/光華官網小工具/scratch/src/components/*.jsx /Users/nickchen/光華官網小工具/scratch/src/App.jsx)",
+      "Bash(node scripts/slim_db.js)",
+      "Bash(npm run:*)",
+      "Bash(zip -r ../dist.zip .)",
+      "Read(//Users/nickchen/光華官網小工具/**)",
+      "Bash(unzip -l /Users/nickchen/光華官網小工具/scratch/dist.zip)",
+      "Bash(rm /Users/nickchen/光華官網小工具/scratch/dist.zip)",
+      "Bash(zip -r ../dist.zip . --exclude \"*.DS_Store\")",
+      "Bash(unzip -l ../dist.zip)",
+      "Bash(\"/Users/nickchen/光華官網小工具/scratch/src/index.css\")",
+      "Bash(lsof -ti:4173)",
+      "Bash(xargs kill:*)",
+      "Bash(lsof -ti:5175)"
+    ]
+  }
+}
