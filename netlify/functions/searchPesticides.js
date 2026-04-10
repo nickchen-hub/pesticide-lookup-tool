@@ -6,6 +6,21 @@ let mechMapCache = null;
 const PRIORITY_VENDORS = ['光华', '春匯', '光華'];
 const RAW_LICENSE_TYPES = ['農藥原進', '農藥原製'];
 
+function getSlimProduct(p) {
+  return {
+    '許可證字': p['許可證字'],
+    '許可證號': p['許可證號'],
+    '廠商名稱': p['廠商名稱'],
+    '廠牌名稱': p['廠牌名稱'],
+    '中文名稱': p['中文名稱'],
+    '英文名稱': p['英文名稱'],
+    '農藥代號': p['農藥代號'],
+    'IRAC殺蟲劑抗藥性': p['IRAC殺蟲劑抗藥性'],
+    'FRAC殺菌劑抗藥性': p['FRAC殺菌劑抗藥性'],
+    'HRAC除草劑抗藥性': p['HRAC除草劑抗藥性']
+  };
+}
+
 // Load DB
 function getDb() {
   if (!dbCache) {
@@ -96,7 +111,7 @@ exports.handler = async (event, context) => {
               products: []
             });
           }
-          matchesMap.get(groupKey).products.push(pesticide);
+          matchesMap.get(groupKey).products.push(getSlimProduct(pesticide));
         }
       }
 
@@ -116,7 +131,7 @@ exports.handler = async (event, context) => {
         if (matchesMap.has(groupKey)) {
           const licenseNo = pesticide['許可證號'];
           if (!addedLicenses.get(groupKey).has(licenseNo)) {
-            matchesMap.get(groupKey).products.push(pesticide);
+            matchesMap.get(groupKey).products.push(getSlimProduct(pesticide));
             addedLicenses.get(groupKey).add(licenseNo);
           }
         }
@@ -315,7 +330,7 @@ exports.handler = async (event, context) => {
             products: [],
           });
         }
-        matchesMap.get(groupKey).products.push(pesticide);
+        matchesMap.get(groupKey).products.push(getSlimProduct(pesticide));
       }
 
       const sortedResults = Array.from(matchesMap.values()).sort((a, b) => {
