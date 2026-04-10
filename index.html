@@ -15,6 +15,12 @@
     </script>
   </head>
   <body>
+    <!-- Netlify forms trigger for Vite/React Apps -->
+    <form name="feedback" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <textarea name="message"></textarea>
+    </form>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

@@ -4,6 +4,7 @@ import ResultList from './components/ResultList';
 import ReverseLookup from './components/ReverseLookup';
 import DilutionCalculator from './components/DilutionCalculator';
 import MechanismSearch from './components/MechanismSearch';
+import FeedbackModal from './components/FeedbackModal';
 import { Sprout } from 'lucide-react';
 
 function App() {
@@ -199,6 +200,8 @@ function App() {
           <p>數據來源：農業部開放資料平臺 (data.moa.gov.tw) - 本系統僅供參考，請依照農藥標示使用。</p>
         </div>
       </footer>
+
+      <FeedbackModal />
     </>
   );
 }
