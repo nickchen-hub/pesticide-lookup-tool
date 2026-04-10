@@ -9,10 +9,25 @@ const RAW_LICENSE_TYPES = ['農藥原進', '農藥原製'];
 // Load DB
 function getDb() {
   if (!dbCache) {
-    let targetPath = path.resolve(process.cwd(), 'public/pesticide_db.json');
-    if (!fs.existsSync(targetPath)) {
-      targetPath = path.resolve(__dirname, '../../public/pesticide_db.json');
+    const possiblePaths = [
+      path.join(__dirname, 'public/pesticide_db.json'),         // Netlify bundled lambda
+      path.join(__dirname, '../../public/pesticide_db.json'),   // Local 'netlify dev'
+      path.join(process.cwd(), 'public/pesticide_db.json'),     // Fallback process cwd
+      path.join(process.env.LAMBDA_TASK_ROOT || '', 'public/pesticide_db.json') // AWS fallback
+    ];
+    
+    let targetPath = null;
+    for (const p of possiblePaths) {
+      if (fs.existsSync(p)) {
+        targetPath = p;
+        break;
+      }
     }
+    
+    if (!targetPath) {
+      throw new Error("Cannot find pesticide_db.json. Checked: " + possiblePaths.join(', '));
+    }
+    
     const dataString = fs.readFileSync(targetPath, 'utf8');
     dbCache = JSON.parse(dataString);
   }
