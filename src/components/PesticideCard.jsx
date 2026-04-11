@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Target, Droplet, Clock, ChevronDown, ChevronUp, ExternalLink } from 'lucide-react';
+import { Target, Droplet, Clock, ChevronDown, ChevronUp, ExternalLink, Scale } from 'lucide-react';
 
 const PRIORITY_VENDORS = ['光華', '春匯'];
 
@@ -56,9 +56,13 @@ export default function PesticideCard({ groupData, onNavigateToReverse }) {
               <span className="flex items-center gap-1" style={{ color: 'var(--color-text-secondary)' }}><Droplet size={14} /> 稀釋倍數:</span>
               <span style={{ fontWeight: 600 }}>{matchedScope['稀釋倍數']} {matchedScope['稀釋倍數'].includes('倍') ? '' : '倍'}</span>
             </div>
+            <div className="flex justify-between mb-2" style={{ fontSize: '0.875rem' }}>
+              <span className="flex items-center gap-1" style={{ color: 'var(--color-text-secondary)' }}><Scale size={14} /> 每公頃每次用量:</span>
+              <span style={{ fontWeight: 600 }}>{matchedScope['每公頃使用用藥量'] || '-'}</span>
+            </div>
             <div className="flex justify-between" style={{ fontSize: '0.875rem' }}>
               <span className="flex items-center gap-1" style={{ color: 'var(--color-text-secondary)' }}><Clock size={14} /> 安全採收期:</span>
-              <span style={{ fontWeight: 600 }}>{matchedScope['安全採收期']} {matchedScope['安全採收期'].includes('日') || matchedScope['安全採收期'] === '-' ? '' : '日'}</span>
+              <span style={{ fontWeight: 600 }}>{matchedScope['安全採收期']} {matchedScope['安全採收期'] && (matchedScope['安全採收期'].includes('日') || matchedScope['安全採收期'] === '-') ? '' : '日'}</span>
             </div>
             <div className="flex flex-col mt-3" style={{ fontSize: '0.875rem', padding: '0.75rem 0 0', borderTop: '1px dashed var(--color-border)' }}>
               <span style={{ color: 'var(--color-text-secondary)', marginBottom: '0.25rem', fontWeight: 500 }}>使用時期:</span>
