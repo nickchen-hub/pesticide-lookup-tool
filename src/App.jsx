@@ -5,6 +5,7 @@ import ReverseLookup from './components/ReverseLookup';
 import DilutionCalculator from './components/DilutionCalculator';
 import MechanismSearch from './components/MechanismSearch';
 import FeedbackModal from './components/FeedbackModal';
+import LanguageSwitcher, { TranslationNotice } from './components/LanguageSwitcher';
 import { Sprout } from 'lucide-react';
 
 function App() {
@@ -21,8 +22,9 @@ function App() {
   // For navigating from forward results to reverse lookup
   const [reverseInitialData, setReverseInitialData] = useState(null);
 
-  const handleSearch = async () => {
-    if (!crop || !pest) return;
+  // SearchCard 會把英文名稱轉成中文後傳進來
+  const handleSearch = async (searchCrop = crop, searchPest = pest) => {
+    if (!searchCrop || !searchPest) return;
 
     setHasSearched(true);
     setLoading(true);
@@ -35,7 +37,7 @@ function App() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ action: 'forward', crop, pest }),
+        body: JSON.stringify({ action: 'forward', crop: searchCrop, pest: searchPest }),
       });
 
       if (!res.ok) {
@@ -72,6 +74,7 @@ function App() {
   return (
     <>
       <header className="app-header">
+        <LanguageSwitcher />
         <div className="container animate-fade-in">
           <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '1rem' }}>
             <div className="flex items-center gap-6">
@@ -157,6 +160,7 @@ function App() {
           </div>
         </div>
       </header>
+      <TranslationNotice />
       
       <main className="container" style={{ minHeight: '60vh', paddingBottom: '4rem', paddingTop: '3rem' }}>
         {activePage === 'forward' && (

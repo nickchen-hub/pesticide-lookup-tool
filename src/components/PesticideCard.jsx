@@ -28,7 +28,7 @@ export default function PesticideCard({ groupData, onNavigateToReverse }) {
         <div className="flex justify-between items-start mb-4">
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
-              <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-text-primary)' }}>
+              <h3 translate="no" style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-text-primary)' }}>
                 {groupData.name}
               </h3>
               {mechanism && (
@@ -54,7 +54,7 @@ export default function PesticideCard({ groupData, onNavigateToReverse }) {
             </h4>
             <div className="flex justify-between mb-2" style={{ fontSize: '0.875rem' }}>
               <span className="flex items-center gap-1" style={{ color: 'var(--color-text-secondary)' }}><Droplet size={14} /> 稀釋倍數:</span>
-              <span style={{ fontWeight: 600 }}>{matchedScope['稀釋倍數']} {matchedScope['稀釋倍數'].includes('倍') ? '' : '倍'}</span>
+              <span style={{ fontWeight: 600 }}><span translate="no">{matchedScope['稀釋倍數']}</span> {matchedScope['稀釋倍數'].includes('倍') ? '' : '倍'}</span>
             </div>
             <div className="flex justify-between mb-2" style={{ fontSize: '0.875rem' }}>
               <span className="flex items-center gap-1" style={{ color: 'var(--color-text-secondary)' }}><Scale size={14} /> 每公頃每次用量:</span>
@@ -127,15 +127,15 @@ export default function PesticideCard({ groupData, onNavigateToReverse }) {
                   }}
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '0.2rem' }}>
-                    <span style={{ fontWeight: isPriority ? 700 : 600, fontSize: '0.9rem', color: isPriority ? 'var(--color-brand-dark)' : 'var(--color-text-primary)' }}>
+                    <span translate="no" style={{ fontWeight: isPriority ? 700 : 600, fontSize: '0.9rem', color: isPriority ? 'var(--color-brand-dark)' : 'var(--color-text-primary)' }}>
                       {p['廠牌名稱'] || p['中文名稱'] || '-'}
                     </span>
-                    <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', whiteSpace: 'nowrap', marginLeft: '0.5rem' }}>
+                    <span translate="no" style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', whiteSpace: 'nowrap', marginLeft: '0.5rem' }}>
                       {p['許可證字']} {p['許可證號']}
                     </span>
                   </div>
                   <div style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)' }}>
-                    產品廠商：{vendor || '-'}
+                    產品廠商：<span translate="no">{vendor || '-'}</span>
                   </div>
                 </div>
               );

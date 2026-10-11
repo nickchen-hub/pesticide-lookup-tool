@@ -568,15 +568,15 @@ export default function ReverseLookup({ initialData, onClearInitialData, onGoBac
                     }}
                   >
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '0.2rem' }}>
-                      <span style={{ fontWeight: 600, fontSize: '0.9rem', color: 'var(--color-text-primary)' }}>
+                      <span translate="no" style={{ fontWeight: 600, fontSize: '0.9rem', color: 'var(--color-text-primary)' }}>
                         {p['廠牌名稱'] || p['中文名稱'] || '-'}
                       </span>
-                      <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', whiteSpace: 'nowrap', marginLeft: '0.5rem' }}>
+                      <span translate="no" style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', whiteSpace: 'nowrap', marginLeft: '0.5rem' }}>
                         {p['許可證字']} {p['許可證號']}
                       </span>
                     </div>
                     <div style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)' }}>
-                      產品廠商：{p['廠商名稱'] || '-'}
+                      產品廠商：<span translate="no">{p['廠商名稱'] || '-'}</span>
                     </div>
                   </div>
                 ))}
@@ -614,7 +614,7 @@ export default function ReverseLookup({ initialData, onClearInitialData, onGoBac
                     <td className="scope-td">{scope['病蟲害名稱'] || '-'}</td>
                     <td className="scope-td">{scope['每公頃使用用藥量'] || '-'}</td>
                     <td className="scope-td scope-highlight">
-                      {scope['稀釋倍數'] || '-'}
+                      <span translate="no">{scope['稀釋倍數'] || '-'}</span>
                       {scope['稀釋倍數'] && !String(scope['稀釋倍數']).includes('倍') ? ' 倍' : ''}
                     </td>
                     <td className="scope-td scope-text-small">{scope['使用時期'] || '-'}</td>
@@ -635,7 +635,7 @@ export default function ReverseLookup({ initialData, onClearInitialData, onGoBac
                       {!scope['說明'] && '-'}
                     </td>
                     <td className="scope-td scope-text-small">{scope['核准日期'] || '-'}</td>
-                    <td className="scope-td scope-text-small">{scope['原始登記廠商名稱'] || '-'}</td>
+                    <td className="scope-td scope-text-small" translate="no">{scope['原始登記廠商名稱'] || '-'}</td>
                   </tr>
                 ))}
               </tbody>
