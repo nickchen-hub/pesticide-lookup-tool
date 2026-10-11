@@ -533,7 +533,7 @@ export default function ReverseLookup({ initialData, onClearInitialData, onGoBac
                 {(() => {
                   const p = matchedProducts[0];
                   if (!p) return null;
-                  // Since we already attached pre-computed mechanism in searchPesticides.js
+                  // Since we already attached pre-computed mechanism in searchPesticides.cjs
                   let mechanism = p._mechanism || null;
                   
                   return mechanism ? <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#d97706', whiteSpace: 'nowrap' }}>作用機制：{mechanism}</span> : null;
