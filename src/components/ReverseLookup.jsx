@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Search, ChevronRight, ChevronDown, ChevronUp, ArrowLeft, Leaf, Beaker, FlaskConical, List, Package } from 'lucide-react';
+import { IngredientName, DaysValue, DilutionValue, DosageValue, Label, TermName } from './I18nValues';
 
 export default function ReverseLookup({ initialData, onClearInitialData, onGoBackToForward }) {
   // Step: 'search' | 'selectIngredient' | 'selectFormulation' | 'results'
@@ -321,7 +322,7 @@ export default function ReverseLookup({ initialData, onClearInitialData, onGoBac
               </button>
               <ChevronRight size={14} className="breadcrumb-sep" />
               <span className="breadcrumb-active breadcrumb-btn">
-                {selectedIngredient?.name} — {formulationLabel(selectedFormulation?.formulation)} {selectedFormulation?.content}
+                <IngredientName zh={selectedIngredient?.name} en={selectedIngredient?.englishName} /> — {formulationLabel(selectedFormulation?.formulation)} {selectedFormulation?.content}
               </span>
             </>
           ) : (
@@ -348,7 +349,7 @@ export default function ReverseLookup({ initialData, onClearInitialData, onGoBac
                     className={`breadcrumb-btn ${step === 'selectFormulation' ? 'breadcrumb-active' : ''}`}
                     onClick={goToFormulations}
                   >
-                    {selectedIngredient.name}
+                    <IngredientName zh={selectedIngredient.name} en={selectedIngredient.englishName} />
                   </button>
                 </>
               )}
@@ -453,10 +454,10 @@ export default function ReverseLookup({ initialData, onClearInitialData, onGoBac
               >
                 <div className="ingredient-card-header">
                   <FlaskConical size={18} className="ingredient-icon" />
-                  <span className="ingredient-name">{opt.name}</span>
+                  <span className="ingredient-name" translate="no">{opt.name}</span>
                 </div>
                 <div className="ingredient-card-meta">
-                  <span className="ingredient-en">{opt.englishName}</span>
+                  <span className="ingredient-en" translate="no">{opt.englishName}</span>
                   <span className="ingredient-code">{opt.code}</span>
                 </div>
                 <div className="ingredient-card-footer">
@@ -483,7 +484,7 @@ export default function ReverseLookup({ initialData, onClearInitialData, onGoBac
                 選擇劑型與含量
               </h2>
               <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', marginTop: '0.25rem' }}>
-                {selectedIngredient.name}（{selectedIngredient.englishName}）共有 {formulationOptions.length} 種劑型含量組合
+                <span translate="no">{selectedIngredient.name}（{selectedIngredient.englishName}）</span>共有 {formulationOptions.length} 種劑型含量組合
               </p>
             </div>
           </div>
@@ -528,7 +529,7 @@ export default function ReverseLookup({ initialData, onClearInitialData, onGoBac
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
                 <h2 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>
-                  {selectedIngredient.name} — {formulationLabel(selectedFormulation.formulation)} {selectedFormulation.content}
+                  <IngredientName zh={selectedIngredient.name} en={selectedIngredient.englishName} /> — {formulationLabel(selectedFormulation.formulation)} {selectedFormulation.content}
                 </h2>
                 {(() => {
                   const p = matchedProducts[0];
@@ -592,44 +593,48 @@ export default function ReverseLookup({ initialData, onClearInitialData, onGoBac
             <table className="scope-table">
               <thead>
                 <tr>
-                  <th className="scope-th sticky-col">作物</th>
-                  <th className="scope-th">病蟲害</th>
-                  <th className="scope-th">每公頃每次用量</th>
-                  <th className="scope-th">稀釋倍數</th>
-                  <th className="scope-th">使用時期</th>
-                  <th className="scope-th">施藥間隔</th>
-                  <th className="scope-th">施用次數</th>
-                  <th className="scope-th">安全採收期</th>
-                  <th className="scope-th">施藥方法</th>
-                  <th className="scope-th">注意事項</th>
-                  <th className="scope-th">說明</th>
-                  <th className="scope-th">核准日期</th>
-                  <th className="scope-th">原始登記廠商</th>
+                  <th className="scope-th sticky-col"><Label zh="作物" /></th>
+                  <th className="scope-th"><Label zh="病蟲害" /></th>
+                  <th className="scope-th"><Label zh="每公頃每次用量" /></th>
+                  <th className="scope-th"><Label zh="稀釋倍數" /></th>
+                  <th className="scope-th"><Label zh="使用時期" /></th>
+                  <th className="scope-th"><Label zh="施藥間隔" /></th>
+                  <th className="scope-th"><Label zh="施用次數" /></th>
+                  <th className="scope-th"><Label zh="安全採收期" /></th>
+                  <th className="scope-th"><Label zh="施藥方法" /></th>
+                  <th className="scope-th"><Label zh="注意事項" /></th>
+                  <th className="scope-th"><Label zh="說明" /></th>
+                  <th className="scope-th"><Label zh="核准日期" /></th>
+                  <th className="scope-th"><Label zh="原始登記廠商" /></th>
                 </tr>
               </thead>
               <tbody>
                 {scopes.map((scope, idx) => (
                   <tr key={idx} className={idx % 2 === 0 ? 'scope-row-even' : 'scope-row-odd'}>
-                    <td className="scope-td scope-crop sticky-col">{scope['作物名稱'] || '-'}</td>
-                    <td className="scope-td">{scope['病蟲害名稱'] || '-'}</td>
-                    <td className="scope-td">{scope['每公頃使用用藥量'] || '-'}</td>
+                    <td className="scope-td scope-crop sticky-col">{scope['作物名稱'] ? <TermName zh={scope['作物名稱']} kind="crops" /> : '-'}</td>
+                    <td className="scope-td">{scope['病蟲害名稱'] ? <TermName zh={scope['病蟲害名稱']} kind="pests" /> : '-'}</td>
+                    <td className="scope-td"><DosageValue value={scope['每公頃使用用藥量']}>{scope['每公頃使用用藥量'] || '-'}</DosageValue></td>
                     <td className="scope-td scope-highlight">
-                      <span translate="no">{scope['稀釋倍數'] || '-'}</span>
-                      {scope['稀釋倍數'] && !String(scope['稀釋倍數']).includes('倍') ? ' 倍' : ''}
+                      <DilutionValue value={scope['稀釋倍數']}>
+                        <span translate="no">{scope['稀釋倍數'] || '-'}</span>
+                        {scope['稀釋倍數'] && !String(scope['稀釋倍數']).includes('倍') ? ' 倍' : ''}
+                      </DilutionValue>
                     </td>
                     <td className="scope-td scope-text-small">{scope['使用時期'] || '-'}</td>
-                    <td className="scope-td">{scope['施藥間隔'] || '-'}</td>
+                    <td className="scope-td"><DaysValue value={scope['施藥間隔']}>{scope['施藥間隔'] || '-'}</DaysValue></td>
                     <td className="scope-td">{scope['施用次數'] || '-'}</td>
                     <td className="scope-td scope-highlight">
-                      {scope['安全採收期'] || '-'}
-                      {scope['安全採收期'] && !String(scope['安全採收期']).includes('日') && scope['安全採收期'] !== '-' ? '日' : ''}
+                      <DaysValue value={scope['安全採收期']}>
+                        {scope['安全採收期'] || '-'}
+                        {scope['安全採收期'] && !String(scope['安全採收期']).includes('日') && scope['安全採收期'] !== '-' ? '日' : ''}
+                      </DaysValue>
                     </td>
                     <td className="scope-td scope-text-small">{scope['施藥方法'] || '-'}</td>
                     <td className="scope-td scope-text-small">{scope['注意事項'] || '-'}</td>
                     <td className="scope-td">
                       {scope['說明'] && (
                         <span className={`scope-badge ${scope['說明'] === '延伸使用' ? 'scope-badge-extend' : 'scope-badge-normal'}`}>
-                          {scope['說明']}
+                          <Label zh={scope['說明']} />
                         </span>
                       )}
                       {!scope['說明'] && '-'}

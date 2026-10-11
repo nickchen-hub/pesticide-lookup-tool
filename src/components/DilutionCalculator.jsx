@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { Droplets, FlaskConical, Coins, Calculator } from 'lucide-react';
+import { UnitLabel } from './I18nValues';
 
 const TABS = [
   { id: 'water', label: '水量計算', icon: Droplets, color: '#0ea5e9' },
@@ -22,7 +23,7 @@ function NumberInput({ id, label, unit, value, onChange, placeholder }) {
           min="0"
           step="any"
         />
-        <span className="calc-input-unit">{unit}</span>
+        <span className="calc-input-unit"><UnitLabel zh={unit} /></span>
       </div>
     </div>
   );
@@ -38,7 +39,7 @@ function ResultDisplay({ label, value, unit, accentColor }) {
       <span className="calc-result-label">{label}</span>
       <div className="calc-result-value-row">
         <span className="calc-result-value">{displayValue}</span>
-        <span className="calc-result-unit">{unit}</span>
+        <span className="calc-result-unit"><UnitLabel zh={unit} /></span>
       </div>
     </div>
   );

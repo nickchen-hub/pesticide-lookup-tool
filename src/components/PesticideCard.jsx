@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Target, Droplet, Clock, ChevronDown, ChevronUp, ExternalLink, Scale } from 'lucide-react';
+import { IngredientName, DaysValue, DilutionValue, DosageValue } from './I18nValues';
 
 const PRIORITY_VENDORS = ['光華', '春匯'];
 
@@ -28,8 +29,8 @@ export default function PesticideCard({ groupData, onNavigateToReverse }) {
         <div className="flex justify-between items-start mb-4">
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
-              <h3 translate="no" style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-text-primary)' }}>
-                {groupData.name}
+              <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-text-primary)' }}>
+                <IngredientName zh={groupData.name} en={groupData.products.find(p => p['英文名稱'])?.['英文名稱']} />
               </h3>
               {mechanism && (
                 <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#d97706', whiteSpace: 'nowrap' }}>
@@ -54,15 +55,15 @@ export default function PesticideCard({ groupData, onNavigateToReverse }) {
             </h4>
             <div className="flex justify-between mb-2" style={{ fontSize: '0.875rem' }}>
               <span className="flex items-center gap-1" style={{ color: 'var(--color-text-secondary)' }}><Droplet size={14} /> 稀釋倍數:</span>
-              <span style={{ fontWeight: 600 }}><span translate="no">{matchedScope['稀釋倍數']}</span> {matchedScope['稀釋倍數'].includes('倍') ? '' : '倍'}</span>
+              <span style={{ fontWeight: 600 }}><DilutionValue value={matchedScope['稀釋倍數']}><span translate="no">{matchedScope['稀釋倍數']}</span> {matchedScope['稀釋倍數'].includes('倍') ? '' : '倍'}</DilutionValue></span>
             </div>
             <div className="flex justify-between mb-2" style={{ fontSize: '0.875rem' }}>
               <span className="flex items-center gap-1" style={{ color: 'var(--color-text-secondary)' }}><Scale size={14} /> 每公頃每次用量:</span>
-              <span style={{ fontWeight: 600 }}>{matchedScope['每公頃使用用藥量'] || '-'}</span>
+              <span style={{ fontWeight: 600 }}><DosageValue value={matchedScope['每公頃使用用藥量']}>{matchedScope['每公頃使用用藥量'] || '-'}</DosageValue></span>
             </div>
             <div className="flex justify-between" style={{ fontSize: '0.875rem' }}>
               <span className="flex items-center gap-1" style={{ color: 'var(--color-text-secondary)' }}><Clock size={14} /> 安全採收期:</span>
-              <span style={{ fontWeight: 600 }}>{matchedScope['安全採收期']} {matchedScope['安全採收期'] && (matchedScope['安全採收期'].includes('日') || matchedScope['安全採收期'] === '-') ? '' : '日'}</span>
+              <span style={{ fontWeight: 600 }}><DaysValue value={matchedScope['安全採收期']}>{matchedScope['安全採收期']} {matchedScope['安全採收期'] && (matchedScope['安全採收期'].includes('日') || matchedScope['安全採收期'] === '-') ? '' : '日'}</DaysValue></span>
             </div>
             <div className="flex flex-col mt-3" style={{ fontSize: '0.875rem', padding: '0.75rem 0 0', borderTop: '1px dashed var(--color-border)' }}>
               <span style={{ color: 'var(--color-text-secondary)', marginBottom: '0.25rem', fontWeight: 500 }}>使用時期:</span>
