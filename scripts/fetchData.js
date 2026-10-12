@@ -89,6 +89,7 @@ async function fetchData() {
 
   const resultingDB = [];
   let processedCount = 0;
+  let failedCount = 0;
 
   async function processItem(item) {
     const url = item['農藥使用範圍'];
@@ -101,10 +102,12 @@ async function fetchData() {
         resultingDB.push(slimRecord(item, scopeData));
       } else {
         // 保留基本資料，就算沒有使用範圍（如農藥製廠商產品）
+        failedCount++;
         resultingDB.push(slimRecord(item, []));
       }
     } catch {
       // 超時或錯誤：仍保留基本資料
+      failedCount++;
       resultingDB.push(slimRecord(item, []));
     } finally {
       processedCount++;
@@ -118,6 +121,22 @@ async function fetchData() {
   for (let i = 0; i < toProcess.length; i += CONCURRENCY_LIMIT) {
     const chunk = toProcess.slice(i, i + CONCURRENCY_LIMIT);
     await Promise.allSettled(chunk.map(item => processItem(item)));
+  }
+
+  // 防呆：使用範圍 API 曾整批回傳空陣列，不能讓這種結果覆蓋掉現有資料
+  const countScopes = db => db.reduce((n, r) => n + (r.usageScopes?.length || 0), 0);
+  const newScopes = countScopes(resultingDB);
+  let oldScopes = 0;
+  try {
+    oldScopes = countScopes(JSON.parse(await fs.readFile(DB_OUTPUT_PATH, 'utf-8')));
+  } catch {
+    // 沒有現有資料可比較
+  }
+  console.log(`Usage scopes: ${newScopes} (current file: ${oldScopes}), failed requests: ${failedCount}`);
+  if (oldScopes > 0 && newScopes < oldScopes * 0.8) {
+    console.error(`Aborted: usage scopes dropped below 80% of the current file. The API may be down; ${DB_OUTPUT_PATH} was NOT overwritten.`);
+    process.exitCode = 1;
+    return;
   }
 
   await fs.mkdir(path.dirname(DB_OUTPUT_PATH), { recursive: true });
