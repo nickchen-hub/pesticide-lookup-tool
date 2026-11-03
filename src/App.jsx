@@ -87,8 +87,9 @@ function App() {
               </div>
             </div>
             {/* Tab 切換 */}
-            <div style={{ display: 'inline-flex', gap: '0.35rem', background: 'rgba(5,150,105,0.08)', padding: '0.35rem', borderRadius: '999px', border: '1px solid rgba(5,150,105,0.15)' }}>
+            <div className="main-tabs" style={{ display: 'inline-flex', gap: '0.35rem', background: 'rgba(5,150,105,0.08)', padding: '0.35rem', borderRadius: '999px', border: '1px solid rgba(5,150,105,0.15)' }}>
             <button
+              className="main-tab"
               onClick={() => setActivePage('forward')}
               style={{
                 padding: '0.5rem 1.25rem',
@@ -103,9 +104,11 @@ function App() {
                 transition: 'all 0.2s',
               }}
             >
-              作物 + 病蟲害 → 農藥
+              <span className="tab-label-full">作物 + 病蟲害 → 農藥</span>
+              <span className="tab-label-short">病蟲害查藥</span>
             </button>
             <button
+              className="main-tab"
               onClick={() => { setActivePage('reverse'); setReverseInitialData(null); }}
               style={{
                 padding: '0.5rem 1.25rem',
@@ -120,9 +123,11 @@ function App() {
                 transition: 'all 0.2s',
               }}
             >
-              農藥名稱 → 使用範圍
+              <span className="tab-label-full">農藥名稱 → 使用範圍</span>
+              <span className="tab-label-short">藥名查範圍</span>
             </button>
             <button
+              className="main-tab"
               onClick={() => setActivePage('mechanism')}
               style={{
                 padding: '0.5rem 1.25rem',
@@ -137,9 +142,11 @@ function App() {
                 transition: 'all 0.2s',
               }}
             >
-              作用機制查詢
+              <span className="tab-label-full">作用機制查詢</span>
+              <span className="tab-label-short">作用機制</span>
             </button>
             <button
+              className="main-tab"
               onClick={() => setActivePage('calculator')}
               style={{
                 padding: '0.5rem 1.25rem',
@@ -154,7 +161,8 @@ function App() {
                 transition: 'all 0.2s',
               }}
             >
-              稀釋 / 成本計算
+              <span className="tab-label-full">稀釋 / 成本計算</span>
+              <span className="tab-label-short">稀釋計算</span>
             </button>
           </div>
           </div>

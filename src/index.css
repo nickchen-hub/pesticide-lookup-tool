@@ -291,6 +291,29 @@ body {
   .header-subtitle {
     font-size: min(0.85rem, calc((100vw - 130px) / 20));
   }
+  /* 分頁按鈕改用短名稱並縮小內距，讓每顆按鈕維持一行（inline style 需 !important 覆寫） */
+  .main-tabs {
+    display: flex !important;
+    width: 100%;
+  }
+  .main-tab {
+    flex: 1 1 auto;
+    padding: 0.45rem 0.4rem !important;
+    font-size: min(0.85rem, 3.4vw) !important;
+    white-space: nowrap;
+  }
+}
+
+.tab-label-short {
+  display: none;
+}
+@media (max-width: 640px) {
+  .tab-label-full {
+    display: none;
+  }
+  .tab-label-short {
+    display: inline;
+  }
 }
 
 .hero-title {
