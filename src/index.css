@@ -273,6 +273,26 @@ body {
   margin-top: 0.15rem;
 }
 
+/* 手機版：縮小 logo 與間距，標題/副標字級隨螢幕寬度縮放，讓中文各維持一行 */
+@media (max-width: 640px) {
+  .app-header .container {
+    padding: 0 1rem;
+  }
+  .app-header .gap-6 {
+    gap: 0.75rem;
+  }
+  .header-logo {
+    height: 44px;
+  }
+  /* 130px ≈ 左右留白 32 + logo 80 + 間距 12 + 安全餘量 */
+  .header-title {
+    font-size: min(1.5rem, calc((100vw - 130px) / 10.5));
+  }
+  .header-subtitle {
+    font-size: min(0.85rem, calc((100vw - 130px) / 20));
+  }
+}
+
 .hero-title {
   font-size: 2.5rem;
   font-weight: 800;
