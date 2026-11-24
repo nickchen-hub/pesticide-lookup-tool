@@ -76,7 +76,8 @@ export default function SearchCard({ crop, setCrop, pest, setPest, onSearch }) {
   };
 
   return (
-    <div className="card animate-fade-in" style={{ maxWidth: '800px', margin: '-2rem auto 2rem' }}>
+    // position + zIndex：讓下拉選單超出卡片的部分疊在下方區塊之上（兩者都有 fade-in 動畫各自成一層，否則會被後面的擋住點不到）
+    <div className="card animate-fade-in" style={{ maxWidth: '800px', margin: '-2rem auto 2rem', position: 'relative', zIndex: 10 }}>
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
         <div className="flex" style={{ flexDirection: 'row', gap: '1.5rem', flexWrap: 'wrap' }}>
 
